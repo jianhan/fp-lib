@@ -8,6 +8,7 @@
     "test:unit": "npm run clean && npm run build & jest -c jest.config.unit.js",
     "test:integration": "npm run clean && npm run build & jest -c jest.config.integration.js",
     "lint": "node_modules/tslint/bin/tslint -p tsconfig.json -c tslint.json 'src/**/*.{ts,tsx}' -o lint-result.json -t json",
+    "build": "tsc",
     "clean": "rm -rf dist"
   },
   "devDependencies": {

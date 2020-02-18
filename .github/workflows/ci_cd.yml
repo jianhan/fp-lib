@@ -1,0 +1,75 @@
+name: Node.js CI & CD
+
+on:
+    push:
+      branches:
+        - master
+    pull_request:
+      branches:
+        - master
+    page_build:
+    release:
+      types:
+        - created
+
+jobs:
+  build-and-test:
+    name: Build and test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      # cache tw node modules
+      - name: Cache node modules
+        uses: actions/cache@v1
+        id: node-modules-cache
+        env:
+          cache-name: node-modules-cache
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-build-${{ env.cache-name }}-
+            ${{ runner.os }}-build-
+            ${{ runner.os }}-
+
+      # install dependencies
+      - name: Install dependencies
+        if: steps.node-modules-cache.outputs.cache-hit != 'true'
+        run: npm install
+      
+      # Lint
+      - name: Lint
+        run: npm run lint
+
+      # Build tw
+      - name: Build
+        run: npm run build
+      
+      # Archive build dist artifacts
+      - name: Archive build artifacts
+        uses: actions/upload-artifact@v1
+        with:
+          name: dist
+          path: ./dist
+      
+      # Unit test
+      - name: Unit test
+        run: npm run test:unit
+      
+      # Archive coverage
+      - name: Archive code coverage results
+        uses: actions/upload-artifact@v1
+        with:
+          name: coverage
+          path: coverage
+      
+      - name: Upload test coverage to codecov
+        uses: codecov/codecov-action@v1
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          file: ./coverage/clover.xml
+          flags: unittests
+          name: fp-lib
+          # yml: ./codecov.yml 
+          fail_ci_if_error: true
