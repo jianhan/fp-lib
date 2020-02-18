@@ -12,7 +12,7 @@
     "clean": "rm -rf dist"
   },
   "devDependencies": {
-    "@types/aws-lambda": "^8.10.39",
+    "@types/aws-lambda": "^8.10.42",
     "@types/immutable": "^3.8.7",
     "@types/jest": "^25.1.2",
     "@types/lodash": "^4.14.149",
