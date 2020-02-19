@@ -60,7 +60,16 @@ jobs:
           name: coverage
           path: coverage
       
-      # Build and upload test to code climate
+      - name: Upload test coverage to codecov
+        uses: codecov/codecov-action@v1
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          file: ./coverage/clover.xml
+          flags: unittests
+          name: fp-lib
+          # yml: ./codecov.yml 
+          fail_ci_if_error: true
+
       - name: Test & publish code coverage to code climate
         uses: paambaati/codeclimate-action@v2.4.0
         env:
@@ -69,8 +78,7 @@ jobs:
           coverageCommand: npm run test:unit
           debug: true
 
-      # github pages.
-      - name: Build and deploy github pages
+      - name: Build and Deploy
         uses: JamesIves/github-pages-deploy-action@releases/v3
         with:
           ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
