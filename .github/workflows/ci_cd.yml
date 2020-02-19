@@ -4,16 +4,9 @@ on:
     push:
       branches:
         - master
-        - ench/*
-        - bugfix/*
-        - feature/*
     pull_request:
       branches:
         - master
-    page_build:
-    release:
-      types:
-        - created
 
 jobs:
   build-and-test:
@@ -84,3 +77,9 @@ jobs:
         with:
           coverageCommand: npm run test:unit
           debug: true
+      - name: Build and Deploy
+        uses: JamesIves/github-pages-deploy-action@releases/v3
+        with:
+          ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
+          BRANCH: gh-pages
+          FOLDER: build
