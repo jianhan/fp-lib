@@ -52,16 +52,15 @@ jobs:
       # Unit test
       - name: Unit test
         run: npm run test:unit
-      
-      # Check coverage
-      - name: Check Coverage
-        uses: devmasx/coverage-check-action@v1.1.0
+
+      - name: Monitor coverage
+        uses: slavcodev/coverage-monitor-action@1.0.1
         with:
-          type: lcov
-          result_path: coverage/lcov.info
-          min_coverage: 85
-          token: ${{secrets.GITHUB_TOKEN}}
-      
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          clover_file: "coverage/clover.xml"
+          threshold_alert: 80
+          threshold_warning: 85
+
       # Archive coverage
       - name: Archive code coverage results
         uses: actions/upload-artifact@v1
