@@ -36,7 +36,6 @@ jobs:
       
       # Lint
       - name: Lint
-        needs:
         run: npm run lint
 
       # Build
