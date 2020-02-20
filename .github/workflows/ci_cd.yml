@@ -1,4 +1,4 @@
-name: Node.js CI & CD
+name: Build & Test
 
 on:
     push:
@@ -33,62 +33,69 @@ jobs:
       - name: Install dependencies
         if: steps.node-modules-cache.outputs.cache-hit != 'true'
         run: npm install
-      
-      # Lint
+  lint:
+    name: Lint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
       - name: Lint
         run: npm run lint
-
-      # Build
-      - name: Build
-        run: npm run build
-
-      # Archive build dist artifacts
-      - name: Archive build artifacts
-        uses: actions/upload-artifact@v1
-        with:
-          name: dist
-          path: ./dist
       
-      # Unit test
-      - name: Unit test
-        run: npm run test:unit
+      # # Lint
+      # - name: Lint
+      #   run: npm run lint
 
-      - name: Monitor coverage
-        uses: slavcodev/coverage-monitor-action@1.0.1
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          clover_file: "coverage/clover.xml"
-          threshold_alert: 80
-          threshold_warning: 85
+      # # Build
+      # - name: Build
+      #   run: npm run build
 
-      # Archive coverage
-      - name: Archive code coverage results
-        uses: actions/upload-artifact@v1
-        with:
-          name: coverage
-          path: coverage
+      # # Archive build dist artifacts
+      # - name: Archive build artifacts
+      #   uses: actions/upload-artifact@v1
+      #   with:
+      #     name: dist
+      #     path: ./dist
       
-      - name: Upload test coverage to codecov
-        uses: codecov/codecov-action@v1
-        with:
-          token: ${{ secrets.CODECOV_TOKEN }}
-          file: ./coverage/clover.xml
-          flags: unittests
-          name: fp-lib
-          # yml: ./codecov.yml 
-          fail_ci_if_error: true
+      # # Unit test
+      # - name: Unit test
+      #   run: npm run test:unit
 
-      - name: Test & publish code coverage to code climate
-        uses: paambaati/codeclimate-action@v2.4.0
-        env:
-          CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
-        with:
-          coverageCommand: npm run test:unit
-          debug: true
+      # - name: Monitor coverage
+      #   uses: slavcodev/coverage-monitor-action@1.0.1
+      #   with:
+      #     github_token: ${{ secrets.GITHUB_TOKEN }}
+      #     clover_file: "coverage/clover.xml"
+      #     threshold_alert: 80
+      #     threshold_warning: 85
 
-      - name: Build and Deploy
-        uses: JamesIves/github-pages-deploy-action@releases/v3
-        with:
-          ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
-          BRANCH: gh-pages
-          FOLDER: dist
+      # # Archive coverage
+      # - name: Archive code coverage results
+      #   uses: actions/upload-artifact@v1
+      #   with:
+      #     name: coverage
+      #     path: coverage
+      
+      # - name: Upload test coverage to codecov
+      #   uses: codecov/codecov-action@v1
+      #   with:
+      #     token: ${{ secrets.CODECOV_TOKEN }}
+      #     file: ./coverage/clover.xml
+      #     flags: unittests
+      #     name: fp-lib
+      #     # yml: ./codecov.yml 
+      #     fail_ci_if_error: true
+
+      # - name: Test & publish code coverage to code climate
+      #   uses: paambaati/codeclimate-action@v2.4.0
+      #   env:
+      #     CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
+      #   with:
+      #     coverageCommand: npm run test:unit
+      #     debug: true
+
+      # - name: Build and Deploy
+      #   uses: JamesIves/github-pages-deploy-action@releases/v3
+      #   with:
+      #     ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
+      #     BRANCH: gh-pages
+      #     FOLDER: dist
