@@ -1,12 +1,12 @@
-name: Node.js CI & CD
+name: Build & Test
 
 on:
-    push:
-      branches:
-        - master
-    pull_request:
-      branches:
-        - master
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
 
 jobs:
   build-and-test:
@@ -41,7 +41,7 @@ jobs:
       # Build
       - name: Build
         run: npm run build
-      
+
       # Archive build dist artifacts
       - name: Archive build artifacts
         uses: actions/upload-artifact@v1
@@ -52,14 +52,24 @@ jobs:
       # Unit test
       - name: Unit test
         run: npm run test:unit
-      
+
       # Archive coverage
       - name: Archive code coverage results
         uses: actions/upload-artifact@v1
         with:
           name: coverage
           path: coverage
+
+      # Monitor coverage
+      - name: Monitor coverage
+        uses: slavcodev/coverage-monitor-action@1.0.1
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          clover_file: "coverage/clover.xml"
+          threshold_alert: 80
+          threshold_warning: 85
       
+      # Upload test coverage to codecov
       - name: Upload test coverage to codecov
         uses: codecov/codecov-action@v1
         with:
@@ -69,7 +79,8 @@ jobs:
           name: fp-lib
           # yml: ./codecov.yml 
           fail_ci_if_error: true
-
+      
+      # Test & publish code coverage to code climate
       - name: Test & publish code coverage to code climate
         uses: paambaati/codeclimate-action@v2.4.0
         env:
@@ -78,7 +89,8 @@ jobs:
           coverageCommand: npm run test:unit
           debug: true
 
-      - name: Build and Deploy
+      # Build github pages.
+      - name: Github pages
         uses: JamesIves/github-pages-deploy-action@releases/v3
         with:
           ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
