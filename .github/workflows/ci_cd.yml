@@ -53,6 +53,7 @@ jobs:
       - name: Unit test
         run: npm run test:unit
       
+      # Check coverage
       - name: Check Coverage
         uses: devmasx/coverage-check-action@v1.1.0
         with:
