@@ -41,7 +41,7 @@ jobs:
       # Build
       - name: Build
         run: npm run build
-      
+
       # Archive build dist artifacts
       - name: Archive build artifacts
         uses: actions/upload-artifact@v1
@@ -52,6 +52,14 @@ jobs:
       # Unit test
       - name: Unit test
         run: npm run test:unit
+      
+      - name: Check Coverage
+        uses: devmasx/coverage-check-action@v1.1.0
+        with:
+          type: lcov
+          result_path: coverage/lcov.info
+          min_coverage: 85
+          token: ${{secrets.ACCESS_TOKEN}}
       
       # Archive coverage
       - name: Archive code coverage results
