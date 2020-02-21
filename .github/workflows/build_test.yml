@@ -67,8 +67,8 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           clover_file: "coverage/clover.xml"
-          threshold_alert: 80
-          threshold_warning: 85
+          threshold_alert: 99
+          threshold_warning: 99
       
       # Upload test coverage to codecov
       - name: Upload test coverage to codecov
