@@ -1,4 +1,5 @@
 import { APIGatewayEvent } from "aws-lambda";
+import { Either, tryCatch } from "fp-ts/lib/Either";
 import produce from "immer";
 import { Map } from "immutable";
 import * as moment from "moment";
@@ -11,7 +12,9 @@ import { Environment } from "./constants";
  * prefixDateTime prefix any string with date and time for consist displayingsuch as file ame.
  * @param ft
  */
-export const prefixDateTime = (ft: string) => (name: string, dateTime: moment.Moment): string => sprintf("%s_%s", dateTime.format(ft), name);
+export const prefixDateTime = (ft: string) => (name: string, dateTime: moment.Moment): Either<Error, string> => {
+    return tryCatch(() => sprintf("%s_%s", dateTime.format(ft), name), reason => new Error(String(reason)));
+};
 
 /**
  * simpleLog produce a simple log function.
