@@ -1,0 +1,7 @@
+feature: ['feature/*', 'feat/*']
+fix: ['fix/*', 'hotfix/*', 'bugfix/*']
+chore: chore/*
+cicd: cicd/*
+enhancement: ench/*
+improvement: imprv/*
+fixed-branch: fixed-branch-name

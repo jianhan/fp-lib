@@ -1,7 +1,7 @@
 {
-  "name": "lib",
+  "name": "fp-lib",
   "version": "1.0.0",
-  "description": "",
+  "description": "Some common functions for fp",
   "main": "index.js",
   "scripts": {
     "test": "jest -c jest.config.js",
@@ -43,7 +43,10 @@
     "sprintf-js": "^1.1.2",
     "winston": "^3.2.1"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC"
+  "keywords": [
+    "fp",
+    "lambda"
+  ],
+  "author": "Jian Han",
+  "license": "BSD-3-Clause"
 }
