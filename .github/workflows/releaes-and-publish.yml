@@ -3,6 +3,10 @@ on:
   push:
     branches:
       - master
+  create:
+    tags:
+      - 'v*.*.*'
+
 jobs:
   npm-publish:
     name: npm-publish
