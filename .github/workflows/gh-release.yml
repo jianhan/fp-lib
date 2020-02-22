@@ -12,11 +12,25 @@ jobs:
 
       - name: Checkout
         uses: actions/checkout@v2
-      - name: Generate Changelog
-        run: echo "# Good things have arrived" > ${{ github.workflow }}-CHANGELOG.txt
+
+        # install dependencies
+      - name: Install dependencies
+        run: npm install
+
+        # Generate change logs
+      - name: Generate chagne logs
+        run: npm run version
+
+        # Archive change logs
+      - name: Archive build artifacts
+        uses: actions/upload-artifact@v1
+        with:
+          name: CHANGELOG.md
+          path: CHANGELOG.md
+      
       - name: Release
         uses: softprops/action-gh-release@v1
         with:
-            body_path: ${{ github.workflow }}-CHANGELOG.txt
+            body_path: CHANGELOG.md
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
