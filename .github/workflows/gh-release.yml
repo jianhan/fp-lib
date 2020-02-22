@@ -1,7 +1,10 @@
 name: GH Release
 
 on:
-  push:
+#   push:
+#     tags:
+#       - 'v*.*.*'
+  create:
     tags:
       - 'v*.*.*'
 
