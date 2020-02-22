@@ -97,3 +97,15 @@ jobs:
           ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
           BRANCH: gh-pages
           FOLDER: dist
+      
+      # Generate change logs
+      - name: Generate chagne logs
+        run: npm run version
+
+      # Archive change logs
+      - name: Archive build artifacts
+        uses: actions/upload-artifact@v1
+        with:
+          name: CHANGELOG.md
+          path: CHANGELOG.md
+        
