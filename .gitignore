@@ -11,4 +11,3 @@ coverage
 .env
 terraform.tfvars
 lint-result.*
-CHANGELOG.md
