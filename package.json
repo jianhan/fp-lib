@@ -1,6 +1,6 @@
 {
-  "name": "fp-lib",
-  "version": "1.0.10",
+  "name": "@mynameisjian/fp-lib",
+  "version": "1.0.11",
   "description": "Some common functions for fp",
   "main": "index.js",
   "scripts": {
