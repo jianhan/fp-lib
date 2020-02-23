@@ -34,6 +34,7 @@ jobs:
   gh-release:
     name: gh release
     needs: [npm-publish]
+    runs-on: ubuntu-latest
     steps:
         # Generate change logs
       - name: Generate chagne logs
