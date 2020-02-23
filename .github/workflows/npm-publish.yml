@@ -31,25 +31,25 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
 
-    gh-release:
-      name: gh release
-      needs: [npm-publish]
-      steps:
-          # Generate change logs
-        - name: Generate chagne logs
-          run: npm run version
+  gh-release:
+    name: gh release
+    needs: [npm-publish]
+    steps:
+        # Generate change logs
+      - name: Generate chagne logs
+        run: npm run version
 
-          # Archive change logs
-        - name: Archive build artifacts
-          uses: actions/upload-artifact@v1
-          with:
-            name: CHANGELOG.md
-            path: CHANGELOG.md
-        
-        # Added release
-        - name: Release
-          uses: softprops/action-gh-release@v1
-          with:
-              body_path: CHANGELOG.md
-          env:
-            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        # Archive change logs
+      - name: Archive build artifacts
+        uses: actions/upload-artifact@v1
+        with:
+          name: CHANGELOG.md
+          path: CHANGELOG.md
+      
+      # Added release
+      - name: Release
+        uses: softprops/action-gh-release@v1
+        with:
+            body_path: CHANGELOG.md
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
