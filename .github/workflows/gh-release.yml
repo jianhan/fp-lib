@@ -3,10 +3,10 @@ name: GH Release
 on:
   push:
     tags:
-      - 'v*.*.*'
+      - 'releaes-*.*.*'
   create:
     tags:
-      - 'v*.*.*'
+      - 'release-v*.*.*'
 
 jobs:
   build:
