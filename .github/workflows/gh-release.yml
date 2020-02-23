@@ -3,7 +3,7 @@ name: GH Release
 on:
   push:
     tags:
-      - 'release-*.*.*'
+      - 'Release-*.*.*'
 
 jobs:
   build:
@@ -12,6 +12,8 @@ jobs:
 
       - name: Checkout
         uses: actions/checkout@v2
+
+      - run: npm install
 
         # Generate change logs
       - name: Generate chagne logs
