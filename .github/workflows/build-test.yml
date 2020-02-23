@@ -90,6 +90,10 @@ jobs:
           coverageCommand: npm run test:unit
           debug: true
 
+        # generate api doc
+      - name: Generate API HTML doc
+        run: npm run doc
+
       # Build github pages.
       - name: Github pages
         uses: JamesIves/github-pages-deploy-action@releases/v3
