@@ -34,3 +34,11 @@ jobs:
         # Generate change logs
       - name: Generate chagne logs
         run: npm run version
+
+      - name: Release
+        if: startsWith('Release', 'refs/tags/')
+        uses: softprops/action-gh-release@v1
+        with:
+            body_path: CHANGELOG.md
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }
