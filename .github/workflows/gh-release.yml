@@ -26,6 +26,7 @@ jobs:
           name: CHANGELOG.md
           path: CHANGELOG.md
       
+      # Added release
       - name: Release
         uses: softprops/action-gh-release@v1
         with:
