@@ -1,4 +1,4 @@
-name: Release and publish
+name: NPM Publish
 on:
   push:
     branches:
@@ -30,15 +30,3 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
-
-      # - run: echo ${{ steps.get_tag_name.outputs.VERSION }
-      - name: Set output
-        id: vars
-        run: echo ::set-output name=tag::${GITHUB_REF:10}
-      - name: Check output
-        env:
-          RELEASE_VERSION: ${{ steps.vars.outputs.tag }}
-        run: |
-          echo $RELEASE_VERSION
-          echo ${{ steps.vars.outputs.tag }}
-        
