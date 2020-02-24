@@ -31,7 +31,7 @@ module.exports = {
     "**/*.test.ts",
   ],
   "collectCoverageFrom": [
-    "**/*.{js,jsx,ts}",
+    "**/*.{jsx,ts}",
     "!**/*.test.{js,jsx,ts}",
     "!**/node_modules/**",
     "!**/vendor/**",
