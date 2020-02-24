@@ -1,8 +1,9 @@
 {
   "name": "jianhan-fp-lib",
-  "version": "1.1.23",
+  "version": "1.1.24",
   "description": "Some common functions for fp",
-  "main": "index.js",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "scripts": {
     "test": "jest -c jest.config.js",
     "test:unit": "npm run clean && npm run build & jest -c jest.config.unit.js",
