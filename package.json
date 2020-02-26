@@ -50,7 +50,8 @@
   },
   "keywords": [
     "fp",
-    "lambda"
+    "lambda",
+    "typescript"
   ],
   "author": "Jian Han",
   "license": "BSD-3-Clause",
