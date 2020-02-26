@@ -53,5 +53,8 @@
     "lambda"
   ],
   "author": "Jian Han",
-  "license": "BSD-3-Clause"
+  "license": "BSD-3-Clause",
+  "publishConfig": {
+    "access": "public"
+  }
 }
