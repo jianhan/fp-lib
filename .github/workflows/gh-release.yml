@@ -20,10 +20,18 @@ jobs:
       with:
         node-version: 12
         registry-url: https://registry.npmjs.org/
+    
+    # Build and test
+    - name: Build and test
+      run: |
+        npm install
+        npm run build
+        npm run test:unit
 
     # Generate change logs
     - name: Generate chagne logs
-      run: npm run version
+      run: |
+        npm run version
 
       # Archive change logs
     - name: Archive build artifacts
