@@ -10,34 +10,37 @@ jobs:
     runs-on: ubuntu-latest
     steps:
 
-      - name: Checkout
-        uses: actions/checkout@v2
+    - name: Checkout
+      uses: actions/checkout@v2
 
-      - run: npm install
+    - run: npm install
 
-        # Generate change logs
-      - name: Generate chagne logs
-        run: npm run version
+      # Generate change logs
+    - name: Generate chagne logs
+      run: npm run version
 
-        # Archive change logs
-      - name: Archive build artifacts
-        uses: actions/upload-artifact@v1
-        with:
-          name: CHANGELOG.md
-          path: CHANGELOG.md
-      
-      # Added release
-      - name: Release
-        uses: softprops/action-gh-release@v1
-        with:
-            body_path: CHANGELOG.md
-            prerelease: true
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      # Archive change logs
+    - name: Archive build artifacts
+      uses: actions/upload-artifact@v1
+      with:
+        name: CHANGELOG.md
+        path: CHANGELOG.md
+    
+    # Added release
+    - name: Release
+      uses: softprops/action-gh-release@v1
+      with:
+          body_path: CHANGELOG.md
+          prerelease: true
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   npm-publish:
     runs-on: ubuntu-latest
     steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+
     - uses: actions/setup-node@v1
       with:
         node-version: 12
