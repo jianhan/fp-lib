@@ -10,12 +10,18 @@ jobs:
     runs-on: ubuntu-latest
     steps:
 
+    # checkout
     - name: Checkout
       uses: actions/checkout@v2
+    
+    # setup node
+    - name: Setup node
+      uses: actions/setup-node@v1
+      with:
+        node-version: 12
+        registry-url: https://registry.npmjs.org/
 
-    - run: npm install
-
-      # Generate change logs
+    # Generate change logs
     - name: Generate chagne logs
       run: npm run version
 
@@ -33,19 +39,10 @@ jobs:
           body_path: CHANGELOG.md
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-  npm-publish:
-    runs-on: ubuntu-latest
-    steps:
-    - name: Checkout
-      uses: actions/checkout@v2
-
-    - uses: actions/setup-node@v1
-      with:
-        node-version: 12
-        registry-url: https://registry.npmjs.org/
-    - run: npm build
-    - run: npm ci
-    - run: npm publish
+    
+    # Build and publish
+    - name: Build and publish to npm
+      run: |
+        npm build && npm ci && npm publish
       env:
-        NODE_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
+        NODE_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }
