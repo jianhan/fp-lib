@@ -6,7 +6,9 @@ on:
       - published
 
 jobs:
+
   publish-npm:
+    needs: build
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -14,31 +16,24 @@ jobs:
         with:
           node-version: 12
           registry-url: https://registry.npmjs.org/
-        env:
-          GITHUB_TOKEN: ${{ secrets.PAT }}
       - run: npm build
-        env:
-          GITHUB_TOKEN: ${{ secrets.PAT }}
       - run: npm ci
-        env:
-          GITHUB_TOKEN: ${{ secrets.PAT }}
       - run: npm publish
         env:
-          NODE_AUTH_TOKEN: ${{secrets.NPM_AUTH_TOKEN}}
-          GITHUB_TOKEN: ${{ secrets.PAT }}
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
 
-  # publish-gpr:
-  #   needs: build
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - uses: actions/checkout@v2
-  #     - uses: actions/setup-node@v1
-  #       with:
-  #         node-version: 12
-  #         registry-url: https://npm.pkg.github.com/
-  #         scope: '@jianhan'
-  #     - run: npm build
-  #     - run: npm ci
-  #     - run: npm publish
-  #       env:
-  #         NODE_AUTH_TOKEN: ${{secrets.ACCESS_TOKEN}}
+  publish-gpr:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 12
+          registry-url: https://npm.pkg.github.com/
+          scope: '@jianhan'
+      - run: npm build
+      - run: npm ci
+      - run: npm publish
+        env:
+          NODE_AUTH_TOKEN: ${{secrets.PAT}}
