@@ -1,6 +1,6 @@
 {
   "name": "jianhan-fp-lib",
-  "version": "1.2.9",
+  "version": "1.2.10",
   "description": "Some common functions for fp",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
