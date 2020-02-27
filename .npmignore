@@ -18,3 +18,5 @@ jest
 *.hbs
 tsconfig.json
 tslint.json
+/src
+jest.config.*
