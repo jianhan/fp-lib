@@ -4,4 +4,4 @@ chore: chore/*
 cicd: cicd/*
 enhancement: ench/*
 improvement: imprv/*
-fixed-branch: fixed-branch-name
+documentation: ['doc/*', 'documentation/*']
