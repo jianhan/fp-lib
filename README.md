@@ -7,7 +7,6 @@
 ![Node.js CI & CD](https://github.com/jianhan/fp-lib/workflows/Node.js%20CI%20&%20CD/badge.svg?branch=master)
 <br>
 
-# fp-lib
 A custom typescript functional programming libraries, including some common functions written in fp paradigm.
 
 ## Installation 
