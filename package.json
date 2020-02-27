@@ -3,9 +3,17 @@
   "version": "1.2.19",
   "description": "Some common functions for fp",
   "main": "dist/index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jianhan/fp-lib.git"
+  },
+  "bugs": {
+    "url": "https://github.com/jianhan/fp-lib/issues"
+  },
+  "homepage": "https://github.com/jianhan/fp-lib#readme",
   "types": "dist/index.d.ts",
   "scripts": {
-    "test": "jest -c jest.config.js",
+    "test": "jest -c jest.config.unit.js",
     "test:unit": "npm run clean && npm run build & jest -c jest.config.unit.js",
     "test:integration": "npm run clean && npm run build & jest -c jest.config.integration.js",
     "lint": "node_modules/tslint/bin/tslint -p tsconfig.json -c tslint.json 'src/**/*.{ts,tsx}' -o lint-result.json -t json",
