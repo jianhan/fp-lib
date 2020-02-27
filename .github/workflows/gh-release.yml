@@ -53,6 +53,6 @@ jobs:
     # Build and publish
     - name: Build and publish to npm
       run: |
-        npm build && npm ci && npm publish
+        npm run build && npm ci && npm publish
       env:
         NODE_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
