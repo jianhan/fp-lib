@@ -1,35 +1,19 @@
-import { either, Either, left, right } from "fp-ts/lib/Either";
-import { fromJS } from "immutable";
-import R from "ramda";
-import winston, { Logger } from "winston";
+import winston from "winston";
 import { Environment, LogLevel } from "./constants";
-
-/**
- * createLoggerByEnvMap create an logger instance based on environment.
- * @param m
- */
-export const createLoggerByEnvMap = (m: any): Either<Error, Logger> => {
-    return either.map(
-        getLogLevel(m.get("NODE_ENV") as Environment),
-        R.curry(createLogger)(m.get("NODE_ENV") as Environment, m.get("SERVICE_NAME") as string),
-    );
-};
 
 /**
  * getLogLevel defines different log level for different environment.
  * @param environment
  */
-export const getLogLevel = (environment: Environment): Either<Error, LogLevel> => {
+const getLogLevel = (environment: Environment): LogLevel => {
     switch (environment) {
         case Environment.DEVELOPMENT:
         case Environment.STAGE:
         case Environment.UAT:
-            return right(LogLevel.DEBUG);
+            return LogLevel.DEBUG;
         case Environment.PRODUCTION:
-            return right(LogLevel.INFO);
+            return LogLevel.INFO;
     }
-
-    return left(new Error(`unknown environment ${environment}`));
 };
 
 /*
@@ -39,9 +23,10 @@ export const getLogLevel = (environment: Environment): Either<Error, LogLevel> =
  * @param service
  * @param level
  */
-export const createLogger = (environment: string, service: string, level: string): winston.Logger => {
-    const l = winston.createLogger({
-        level,
+export const createLogger = (environment: Environment, service: string, logLevel: string = ''): winston.Logger => {
+    logLevel = logLevel === '' ? getLogLevel(environment) : logLevel;
+    const logger = winston.createLogger({
+        level: logLevel,
         silent: false,
         format: winston.format.json(),
         defaultMeta: { service, environment },
@@ -51,9 +36,9 @@ export const createLogger = (environment: string, service: string, level: string
     });
 
     if (environment === Environment.DEVELOPMENT) {
-        l.add(new winston.transports.File({ filename: "logs/error.log", level }));
-        l.add(new winston.transports.File({ filename: "logs/combined.log" }));
+        logger.add(new winston.transports.File({ filename: "logs/error.log", level: logLevel }));
+        logger.add(new winston.transports.File({ filename: "logs/combined.log", level: logLevel }));
     }
 
-    return fromJS(l);
+    return logger;
 };
