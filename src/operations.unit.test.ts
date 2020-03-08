@@ -2,7 +2,7 @@ import { isLeft, isRight, map } from "fp-ts/lib/Either";
 import { pipe } from "fp-ts/lib/pipeable";
 import jsc from "jsverify";
 import moment = require("moment");
-import { prefixDateTime, bool2Str } from "./operations";
+import { prefixDateTime, bool2Str, arrUnique, arrTrim } from "./operations";
 
 describe("prefixDateTime function", () => {
 
@@ -41,6 +41,30 @@ describe("bool2Str function", () => {
         expect(bool2Str("noneBoolean1")(obj)).toBe(obj.noneBoolean1)
         expect(bool2Str("noneBoolean2")(obj)).toBe(obj.noneBoolean2)
         expect(bool2Str("noneBoolean3")(obj)).toBe(obj.noneBoolean3)
+    });
+
+});
+
+describe("arrUnique function", () => {
+    it("should remove duplicates from array", () => {
+        jsc.assert(
+            jsc.forall("array string", (arr: string[]) => {
+                return arr.every(v => arrUnique(arr).includes(v))
+            })
+        );
+    });
+
+});
+
+describe("arrTrim function", () => {
+    it("should trim every element within array", () => {
+        jsc.assert(
+            jsc.forall("array string", (arr: string[]) => {
+                return arrTrim(arr).every(v => {
+                    return !v.startsWith(" ") && !v.endsWith(" ")
+                })
+            })
+        );
     });
 
 });
