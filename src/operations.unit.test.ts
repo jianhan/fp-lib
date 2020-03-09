@@ -5,6 +5,8 @@ import moment = require("moment");
 import { prefixDateTime, arrUnique, arrTrim, listUnique, listRemoveEmpty, listTrim, boolPropToStr } from "./operations";
 import * as immutable from "immutable"
 
+const arrOfStr = "array string";
+
 describe("prefixDateTime function", () => {
 
     it("should generate prefix based on date and time", () => {
@@ -49,7 +51,7 @@ describe("boolPropToStr function", () => {
 describe("arrUnique function", () => {
     it("should remove duplicates from array", () => {
         jsc.assert(
-            jsc.forall("array string", (arr: string[]) => {
+            jsc.forall(arrOfStr, (arr: string[]) => {
                 return arr.every(v => arrUnique(arr).includes(v))
             })
         );
@@ -60,7 +62,7 @@ describe("arrUnique function", () => {
 describe("arrTrim function", () => {
     it("should trim every element within array", () => {
         jsc.assert(
-            jsc.forall("array string", (arr: string[]) => {
+            jsc.forall(arrOfStr, (arr: string[]) => {
                 return arrTrim(arr).every(v => {
                     return !v.startsWith(" ") && !v.endsWith(" ")
                 })
@@ -73,7 +75,7 @@ describe("arrTrim function", () => {
 describe("listUnique function", () => {
     it("should trim every element within immutable list", () => {
         jsc.assert(
-            jsc.forall("array string", (arr: string[]) => {
+            jsc.forall(arrOfStr, (arr: string[]) => {
                 const uniqueList = listUnique(immutable.List.of(...arr)).toArray()
 
                 return arr.every(v => uniqueList.includes(v))
@@ -85,7 +87,7 @@ describe("listUnique function", () => {
 describe("listRemoveEmpty function", () => {
     it("should remove empty string within immutable list", () => {
         jsc.assert(
-            jsc.forall("array string", (arr: string[]) => {
+            jsc.forall(arrOfStr, (arr: string[]) => {
                 return listRemoveEmpty(immutable.List.of(...arr)).toArray().filter(s => s === '').length === 0;
 
             })
@@ -96,7 +98,7 @@ describe("listRemoveEmpty function", () => {
 describe("listTrim function", () => {
     it("should remove empty string within immutable list", () => {
         jsc.assert(
-            jsc.forall("array string", (arr: string[]) => {
+            jsc.forall(arrOfStr, (arr: string[]) => {
                 return listTrim(immutable.List.of(...arr)).toArray().filter(s => s.startsWith(" " || s.endsWith(" "))).length === 0;
 
             })
