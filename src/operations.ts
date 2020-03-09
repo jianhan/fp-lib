@@ -41,7 +41,14 @@ export type LambdaFunc = (envs: Map<string, string | Environment | undefined>, l
  * @param k
  */
 // @ts-ignore
-export const bool2Str = (k: string) => S.pipe([S.prop(k), S.ifElse(S.is($.Boolean))((v: boolean) => v ? "true" : "false")(identity)]);
+export const bool2Str = (v: boolean) => v ? "true" : "false";
+
+/**
+ * boolPropToStr get a string representation value of bool within a object.
+ *
+ * @param k
+ */
+export const boolPropToStr = (k: string) => S.pipe([S.prop(k), S.ifElse(S.is($.Boolean))(bool2Str)(identity)]);
 
 /**
  * arrUnique takes an array as input and remove duplicates.
@@ -96,7 +103,7 @@ export const mapGet = (key: string, map: immutable.Map<string, any>) => map.get(
 
 /**
  * mapSet sets value for immutable map.
- * 
+ *
  * @param key
  * @param map
  * @param value

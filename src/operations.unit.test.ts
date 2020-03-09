@@ -2,7 +2,7 @@ import { isLeft, isRight, map } from "fp-ts/lib/Either";
 import { pipe } from "fp-ts/lib/pipeable";
 import jsc from "jsverify";
 import moment = require("moment");
-import { prefixDateTime, bool2Str, arrUnique, arrTrim, listUnique, listRemoveEmpty, listTrim } from "./operations";
+import { prefixDateTime, arrUnique, arrTrim, listUnique, listRemoveEmpty, listTrim, boolPropToStr } from "./operations";
 import * as immutable from "immutable"
 
 describe("prefixDateTime function", () => {
@@ -34,14 +34,14 @@ describe("prefixDateTime function", () => {
 
 });
 
-describe("bool2Str function", () => {
+describe("boolPropToStr function", () => {
     it("should produce the correct value when boolean and none boolean values are given", () => {
         const obj = { "bool1": true, "bool2": false, "noneBoolean1": "test", "noneBoolean2": {}, "noneBoolean3": 123 };
-        expect(bool2Str("bool1")(obj)).toBe("true")
-        expect(bool2Str("bool2")(obj)).toBe("false")
-        expect(bool2Str("noneBoolean1")(obj)).toBe(obj.noneBoolean1)
-        expect(bool2Str("noneBoolean2")(obj)).toBe(obj.noneBoolean2)
-        expect(bool2Str("noneBoolean3")(obj)).toBe(obj.noneBoolean3)
+        expect(boolPropToStr("bool1")(obj)).toBe("true")
+        expect(boolPropToStr("bool2")(obj)).toBe("false")
+        expect(boolPropToStr("noneBoolean1")(obj)).toBe(obj.noneBoolean1)
+        expect(boolPropToStr("noneBoolean2")(obj)).toBe(obj.noneBoolean2)
+        expect(boolPropToStr("noneBoolean3")(obj)).toBe(obj.noneBoolean3)
     });
 
 });
