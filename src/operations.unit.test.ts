@@ -2,7 +2,8 @@ import { isLeft, isRight, map } from "fp-ts/lib/Either";
 import { pipe } from "fp-ts/lib/pipeable";
 import jsc from "jsverify";
 import moment = require("moment");
-import { prefixDateTime, bool2Str, arrUnique, arrTrim } from "./operations";
+import { prefixDateTime, bool2Str, arrUnique, arrTrim, listUnique, listRemoveEmpty, listTrim } from "./operations";
+import * as immutable from "immutable"
 
 describe("prefixDateTime function", () => {
 
@@ -67,4 +68,38 @@ describe("arrTrim function", () => {
         );
     });
 
+});
+
+describe("listUnique function", () => {
+    it("should trim every element within immutable list", () => {
+        jsc.assert(
+            jsc.forall("array string", (arr: string[]) => {
+                const uniqueList = listUnique(immutable.List.of(...arr)).toArray()
+
+                return arr.every(v => uniqueList.includes(v))
+            })
+        );
+    });
+});
+
+describe("listRemoveEmpty function", () => {
+    it("should remove empty string within immutable list", () => {
+        jsc.assert(
+            jsc.forall("array string", (arr: string[]) => {
+                return listRemoveEmpty(immutable.List.of(...arr)).toArray().filter(s => s === '').length === 0;
+
+            })
+        );
+    });
+});
+
+describe("listTrim function", () => {
+    it("should remove empty string within immutable list", () => {
+        jsc.assert(
+            jsc.forall("array string", (arr: string[]) => {
+                return listTrim(immutable.List.of(...arr)).toArray().filter(s => s.startsWith(" " || s.endsWith(" "))).length === 0;
+
+            })
+        );
+    });
 });
