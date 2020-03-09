@@ -55,7 +55,7 @@ export const arrUnique = <T>(array: T[]): T[] => array.filter((a, b) => S.equals
  *
  * @param array
  */
-export const arrTrim = (array: string[]): string[] => array.map(S.trim)
+export const arrTrim = (array: string[]): string[] => array.map(_.trim)
 
 /**
  * listUnique removes duplicates from immutable list.
