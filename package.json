@@ -37,7 +37,7 @@
     "jest": "^25.1.0",
     "jsverify": "^0.8.4",
     "rewire": "^4.0.1",
-    "sinon": "^9.0.0",
+    "sinon": "^9.0.1",
     "ts-jest": "^25.2.0",
     "tslint": "^6.0.0",
     "tslint-clean-code": "^0.2.10",
