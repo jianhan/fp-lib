@@ -28,7 +28,7 @@
     "@types/jest": "^25.1.2",
     "@types/lodash": "^4.14.149",
     "@types/moment": "^2.13.0",
-    "@types/node": "^13.1.2",
+    "@types/node": "^13.9.2",
     "@types/ramda": "^0.26.41",
     "@types/sanctuary": "^0.14.2",
     "@types/sprintf-js": "^1.1.2",
