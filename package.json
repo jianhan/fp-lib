@@ -23,7 +23,7 @@
     "version": "auto-changelog -p && git add CHANGELOG.md"
   },
   "devDependencies": {
-    "@types/aws-lambda": "^8.10.39",
+    "@types/aws-lambda": "^8.10.47",
     "@types/immutable": "^3.8.7",
     "@types/jest": "^25.1.2",
     "@types/lodash": "^4.14.149",
