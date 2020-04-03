@@ -33,7 +33,7 @@
     "@types/sanctuary": "^0.14.2",
     "@types/sprintf-js": "^1.1.2",
     "@types/typescript": "^2.0.0",
-    "auto-changelog": "^1.16.2",
+    "auto-changelog": "^1.16.4",
     "jest": "^25.1.0",
     "jsverify": "^0.8.4",
     "rewire": "^5.0.0",
