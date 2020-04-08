@@ -27,6 +27,7 @@
     "@semantic-release/commit-analyzer": "^8.0.1",
     "@semantic-release/exec": "^5.0.0",
     "@semantic-release/github": "^7.0.5",
+    "@semantic-release/npm": "^7.0.5",
     "@semantic-release/release-notes-generator": "^9.0.1",
     "@types/aws-lambda": "^8.10.39",
     "@types/http-status-codes": "^1.2.0",
@@ -83,6 +84,7 @@
     "plugins": [
       "@semantic-release/commit-analyzer",
       "@semantic-release/release-notes-generator",
+      "@semantic-release/npm",
       [
         "@semantic-release/exec",
         {
