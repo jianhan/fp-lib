@@ -20,6 +20,10 @@ jobs:
       - name: build
         run: npm run build
 
+      # generate api doc
+      - name: Generate API HTML doc
+        run: npm run doc
+
       # create semantic release
       - name: Semantic Release
         uses: cycjimmy/semantic-release-action@v2
@@ -34,10 +38,6 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
-
-      # generate api doc
-      - name: Generate API HTML doc
-        run: npm run doc
 
       # Archive doc artifacts
       - name: Archive build artifacts
