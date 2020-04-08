@@ -1,0 +1,67 @@
+# work flow action will run for deployment
+name: Deploy
+
+on:
+  push:
+    branches:
+      - master
+jobs:
+  deploy:
+    name: Deploy
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      # install dependencies
+      - name: Install dependencies
+        run: npm install
+
+      # install dependencies
+      - name: build
+        run: npm run build
+
+      # generate api doc
+      - name: Generate API HTML doc
+        run: npm run doc
+
+      # create semantic release
+      - name: Semantic Release
+        uses: cycjimmy/semantic-release-action@v2
+        id: semantic-release
+        with:
+          extra_plugins: |
+            @semantic-release/commit-analyzer
+            @semantic-release/release-notes-generator
+            @semantic-release/exec
+            @semantic-release/changelog
+            @semantic-release/github
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
+
+      # sync to s3 for deployment of the zip file
+      - name: Sync lambda to s3
+        uses: jakejarvis/s3-sync-action@master
+        with:
+          args: --acl public-read --follow-symlinks --delete
+        env:
+          AWS_S3_BUCKET: ${{ secrets.AWS_S3_BUCKET }}
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_REGION: 'ap-southeast-2'
+          SOURCE_DIR: 'lambda'
+          DEST_DIR: 'tw-syncer/v${{ steps.semantic-release.outputs.new_release_version }}'
+
+      # Archive doc artifacts
+      - name: Archive build artifacts
+        uses: actions/upload-artifact@v1
+        with:
+          name: doc
+          path: ./doc
+
+      # Build github pages
+      - name: Github pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./doc

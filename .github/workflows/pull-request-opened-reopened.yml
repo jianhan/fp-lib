@@ -1,0 +1,51 @@
+# work flow action will run upon pull request opened and reopened
+name: Pull Request Opened and Reopened
+
+on:
+  pull_request:
+    types: [assigned, opened, synchronize, reopened]
+    branches: [master]
+
+jobs:
+  build-test:
+    name: Build and test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      # cache node modules
+      - name: Cache node modules
+        uses: actions/cache@v1
+        id: node-modules-cache
+        env:
+          cache-name: node-modules-cache
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-build-${{ env.cache-name }}-${{ runner.os }}-build-${{ runner.os }}
+
+      # install dependencies
+      - name: Install dependencies
+        if: steps.node-modules-cache.outputs.cache-hit != 'true'
+        run: npm install
+
+      # Lint
+      - name: Lint
+        run: npm run lint
+
+      # Build
+      - name: Build
+        run: npm run build
+
+      - name: Unit Test
+        run: npm run test:unit
+
+      # Monitor coverage
+      - name: Monitor coverage
+        uses: slavcodev/coverage-monitor-action@1.0.1
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          clover_file: "coverage/clover.xml"
+          threshold_alert: 75
+          threshold_warning: 85
