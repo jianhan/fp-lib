@@ -8,7 +8,7 @@ import { Environment, LogLevel } from "./constants";
 const getLogLevel = (environment: Environment): LogLevel => {
     switch (environment) {
         case Environment.DEVELOPMENT:
-        case Environment.STAGE:
+        case Environment.STAGING:
         case Environment.UAT:
             return LogLevel.DEBUG;
         case Environment.PRODUCTION:
