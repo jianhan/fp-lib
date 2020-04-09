@@ -16,7 +16,7 @@ export enum LogLevel {
 // Environment defines types for different environments.
 export enum Environment {
     DEVELOPMENT = "development",
-    STAGE = "stage",
+    STAGING = "staging",
     UAT = "uat",
     PRODUCTION = "production",
 }

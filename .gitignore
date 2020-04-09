@@ -12,3 +12,5 @@ coverage
 terraform.tfvars
 lint-result.*
 /logs
+/doc
+/.vscode

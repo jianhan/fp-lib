@@ -4,6 +4,7 @@
 [![CodeFactor](https://www.codefactor.io/repository/github/jianhan/fp-lib/badge)](https://www.codefactor.io/repository/github/jianhan/fp-lib)
 <a href="https://codeclimate.com/github/jianhan/fp-lib/maintainability"><img src="https://api.codeclimate.com/v1/badges/0f074aeda4ff49dd5123/maintainability" /></a>
 <a href="https://codeclimate.com/github/jianhan/fp-lib/test_coverage"><img src="https://api.codeclimate.com/v1/badges/0f074aeda4ff49dd5123/test_coverage" /></a>
+[![BCH compliance](https://bettercodehub.com/edge/badge/jianhan/fp-lib?branch=master)](https://bettercodehub.com/)
 ![Node.js CI & CD](https://github.com/jianhan/fp-lib/workflows/Node.js%20CI%20&%20CD/badge.svg?branch=master)
 <br>
 
