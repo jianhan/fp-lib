@@ -19,11 +19,18 @@
     "lint": "node_modules/tslint/bin/tslint -p tsconfig.json -c tslint.json 'src/**/*.{ts,tsx}' -o lint-result.json -t json",
     "build": "tsc",
     "clean": "rm -rf dist",
-    "doc": "./node_modules/.bin/typedoc --out dist/docs --mode modules src/",
+    "doc": "./node_modules/.bin/typedoc --out doc --mode modules src/",
     "version": "auto-changelog -p && git add CHANGELOG.md"
   },
   "devDependencies": {
+    "@semantic-release/changelog": "^5.0.1",
+    "@semantic-release/commit-analyzer": "^8.0.1",
+    "@semantic-release/exec": "^5.0.0",
+    "@semantic-release/github": "^7.0.5",
+    "@semantic-release/npm": "^7.0.5",
+    "@semantic-release/release-notes-generator": "^9.0.1",
     "@types/aws-lambda": "^8.10.39",
+    "@types/http-status-codes": "^1.2.0",
     "@types/immutable": "^3.8.7",
     "@types/jest": "^25.1.2",
     "@types/lodash": "^4.14.149",
@@ -37,9 +44,10 @@
     "jest": "^25.1.0",
     "jsverify": "^0.8.4",
     "rewire": "^5.0.0",
+    "semantic-release": "^17.0.4",
     "sinon": "^9.0.0",
     "ts-jest": "^25.2.0",
-    "tslint": "^6.0.0",
+    "tslint": "^6.1.1",
     "tslint-clean-code": "^0.2.10",
     "tslint-sonarts": "^1.9.0",
     "typedoc": "^0.16.10"
@@ -47,8 +55,9 @@
   "dependencies": {
     "class-validator": "^0.11.0",
     "faker": "^4.1.0",
-    "fp-ts": "^2.5.1",
     "immer": "^6.0.2",
+    "fp-ts": "^2.5.3",
+    "http-status-codes": "^1.4.0",
     "immutable": "^4.0.0-rc.12",
     "lodash": "^4.17.15",
     "moment": "^2.24.0",
@@ -70,5 +79,37 @@
   "license": "BSD-3-Clause",
   "publishConfig": {
     "access": "public"
+  },
+  "release": {
+    "plugins": [
+      "@semantic-release/commit-analyzer",
+      "@semantic-release/release-notes-generator",
+      "@semantic-release/npm",
+      [
+        "@semantic-release/exec",
+        {
+          "prepareCmd": "zip -r doc.zip doc && zip -r dist.zip dist"
+        }
+      ],
+      [
+        "@semantic-release/changelog",
+        {
+          "changelogFile": "CHANGELOG.md"
+        }
+      ],
+      [
+        "@semantic-release/github",
+        {
+          "assets": [
+            "doc.zip",
+            "dist.zip",
+            "CHANGELOG.md"
+          ]
+        }
+      ]
+    ],
+    "branches": [
+      "master"
+    ]
   }
 }

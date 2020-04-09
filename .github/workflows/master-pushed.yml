@@ -1,15 +1,12 @@
-name: Build & Test
+# work flow action will run when PR merged or push to master
+name: Master Pushed
 
 on:
   push:
     branches:
       - master
-  pull_request:
-    branches:
-      - master
-
 jobs:
-  build-and-test:
+  build-test:
     name: Build and test
     runs-on: ubuntu-latest
     steps:
@@ -25,9 +22,7 @@ jobs:
           path: node_modules
           key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('package-lock.json') }}
           restore-keys: |
-            ${{ runner.os }}-build-${{ env.cache-name }}-
-            ${{ runner.os }}-build-
-            ${{ runner.os }}-
+            ${{ runner.os }}-build-${{ env.cache-name }}-${{ runner.os }}-build-${{ runner.os }}
 
       # install dependencies
       - name: Install dependencies
@@ -49,8 +44,7 @@ jobs:
           name: dist
           path: ./dist
 
-      # Unit test
-      - name: Unit test
+      - name: Unit Test
         run: npm run test:unit
 
       # Archive coverage
@@ -60,16 +54,6 @@ jobs:
           name: coverage
           path: coverage
 
-      # Monitor coverage
-      - name: Monitor coverage
-        if: github.event_name == 'pull_request'
-        uses: slavcodev/coverage-monitor-action@1.0.1
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          clover_file: "coverage/clover.xml"
-          threshold_alert: 75
-          threshold_warning: 85
-
       # Upload test coverage to codecov
       - name: Upload test coverage to codecov
         uses: codecov/codecov-action@v1
@@ -77,7 +61,7 @@ jobs:
           token: ${{ secrets.CODECOV_TOKEN }}
           file: ./coverage/clover.xml
           flags: unittests
-          name: fp-lib
+          name: tw-syncer
           fail_ci_if_error: true
 
       # Test & publish code coverage to code climate
@@ -88,15 +72,3 @@ jobs:
         with:
           coverageCommand: npm run test:unit
           debug: true
-
-        # generate api doc
-      - name: Generate API HTML doc
-        run: npm run doc
-
-      # Build github pages.
-      - name: Github pages
-        uses: JamesIves/github-pages-deploy-action@releases/v3
-        with:
-          ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
-          BRANCH: gh-pages
-          FOLDER: dist
