@@ -55,7 +55,7 @@
   "dependencies": {
     "class-validator": "^0.11.0",
     "faker": "^4.1.0",
-    "immer": "^6.0.2",
+    "immer": "^6.0.3",
     "fp-ts": "^2.5.3",
     "http-status-codes": "^1.4.0",
     "immutable": "^4.0.0-rc.12",
