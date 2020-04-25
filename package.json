@@ -63,7 +63,7 @@
     "moment": "^2.24.0",
     "ramda": "^0.27.0",
     "ramda-fantasy": "^0.8.0",
-    "rxjs": "^6.5.4",
+    "rxjs": "^6.5.5",
     "sanctuary": "^3.0.0",
     "sanctuary-def": "^0.21.1",
     "sanctuary-identity": "^2.1.0",
