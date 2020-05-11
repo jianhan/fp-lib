@@ -20,7 +20,9 @@
     "build": "tsc",
     "clean": "rm -rf dist",
     "doc": "./node_modules/.bin/typedoc --out doc --mode modules src/",
-    "version": "auto-changelog -p && git add CHANGELOG.md"
+    "version": "auto-changelog -p && git add CHANGELOG.md",
+    "snyk-protect": "snyk protect",
+    "prepare": "npm run snyk-protect"
   },
   "devDependencies": {
     "@semantic-release/changelog": "^5.0.1",
@@ -68,7 +70,8 @@
     "sanctuary-def": "^0.21.1",
     "sanctuary-identity": "^2.1.0",
     "sprintf-js": "^1.1.2",
-    "winston": "^3.2.1"
+    "winston": "^3.2.1",
+    "snyk": "^1.316.1"
   },
   "keywords": [
     "fp",
@@ -111,5 +114,6 @@
     "branches": [
       "master"
     ]
-  }
+  },
+  "snyk": true
 }
