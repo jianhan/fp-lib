@@ -71,7 +71,7 @@
     "sanctuary-identity": "^2.1.0",
     "sprintf-js": "^1.1.2",
     "winston": "^3.2.1",
-    "snyk": "^1.316.1"
+    "snyk": "^1.996.0"
   },
   "keywords": [
     "fp",
