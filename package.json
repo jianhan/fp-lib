@@ -61,7 +61,7 @@
     "fp-ts": "^2.5.3",
     "http-status-codes": "^1.4.0",
     "immutable": "^4.0.0-rc.12",
-    "lodash": "^4.17.15",
+    "lodash": "^4.17.23",
     "moment": "^2.24.0",
     "ramda": "^0.27.0",
     "ramda-fantasy": "^0.8.0",
@@ -71,7 +71,7 @@
     "sanctuary-identity": "^2.1.0",
     "sprintf-js": "^1.1.2",
     "winston": "^3.2.1",
-    "snyk": "^1.316.1"
+    "snyk": "^1.996.0"
   },
   "keywords": [
     "fp",
